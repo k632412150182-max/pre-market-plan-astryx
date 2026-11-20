@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Pre-Market Plan Astryx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2.25rem; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+      :root {
+        --bull: #15803d; --bull-bg: #dcfce7;
+        --bear: #c2261b; --bear-bg: #fde3e0;
+        --warn: #9a6206; --warn-bg: #fdeec9;
+        --radius: 14px;
+      }
+      /* ---------- ASTRYX THEMES (token sets) ---------- */
+      [data-theme="neutral"]  { --brand:#1f2937; --brand-ink:#fff; --brand-soft:#e5e7eb; --bg:#f3f4f6; --surface:#ffffff; --surface2:#eceef1; --border:#d8dce2; --text:#111827; --text2:#5b6472; --shadow:0 1px 2px rgba(17,24,39,.06),0 8px 24px rgba(17,24,39,.05); }
+      [data-theme="butter"]   { --brand:#8a5a00; --brand-ink:#fff8e1; --brand-soft:#fbe9a8; --bg:#fbf3d3; --surface:#fffdf2; --surface2:#f6eabd; --border:#e3d189; --text:#2e2303; --text2:#77683a; --shadow:0 1px 2px rgba(90,70,0,.08),0 8px 24px rgba(90,70,0,.06); }
+      [data-theme="chocolate"]{ --brand:#5b3220; --brand-ink:#fdf3ea; --brand-soft:#e8cdb8; --bg:#f3e7dc; --surface:#fffaf4; --surface2:#ecdccb; --border:#d3b998; --text:#2b1a10; --text2:#7a5f4c; --shadow:0 1px 2px rgba(60,30,10,.08),0 8px 24px rgba(60,30,10,.07); }
+      [data-theme="matcha"]   { --brand:#3d621f; --brand-ink:#f2fbe9; --brand-soft:#d3e8bd; --bg:#eef4e2; --surface:#fbfef6; --surface2:#e0ebcb; --border:#bccfa2; --text:#1d2a10; --text2:#5d7050; --shadow:0 1px 2px rgba(40,70,10,.08),0 8px 24px rgba(40,70,10,.06); }
+      [data-theme="stone"]    { --brand:#44403c; --brand-ink:#fafaf9; --brand-soft:#e7e5e4; --bg:#eceae8; --surface:#fafaf9; --surface2:#e2dfdb; --border:#cfcbc6; --text:#1c1917; --text2:#6d6660; --shadow:0 1px 2px rgba(28,25,23,.07),0 8px 24px rgba(28,25,23,.05); }
+      [data-theme="gothic"]   { --brand:#7f1d1d; --brand-ink:#fff1f1; --brand-soft:#e5c4c4; --bg:#ece7e7; --surface:#fbf8f8; --surface2:#e3d9d9; --border:#c9b8b8; --text:#1a1214; --text2:#6e5a5e; --shadow:0 1px 2px rgba(30,5,5,.09),0 8px 24px rgba(30,5,5,.07); }
+      [data-theme="y2k"]      { --brand:#0e7490; --brand-ink:#ecfeff; --brand-soft:#fbcfe8; --bg:#e8f6fb; --surface:#ffffff; --surface2:#fde7f3; --border:#a5d8e8; --text:#12222b; --text2:#5b7482; --shadow:0 1px 2px rgba(8,80,100,.08),0 8px 24px rgba(8,80,100,.07); }
+
+      [data-mode="dark"][data-theme="neutral"]  { --brand:#e5e7eb; --brand-ink:#111827; --brand-soft:#2b3342; --bg:#0f1216; --surface:#171b21; --surface2:#20262e; --border:#2e3641; --text:#f2f4f7; --text2:#9aa5b3; --bull:#4ade80; --bull-bg:#123524; --bear:#f87171; --bear-bg:#3d1a16; --warn:#fbbf24; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="butter"]   { --brand:#f5cf5e; --brand-ink:#2e2303; --brand-soft:#3d3410; --bg:#17130a; --surface:#211b0e; --surface2:#2c2513; --border:#453a1c; --text:#faf3da; --text2:#b3a678; --bull:#4ade80; --bull-bg:#123524; --bear:#f87171; --bear-bg:#3d1a16; --warn:#fcd34d; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="chocolate"]{ --brand:#e0aa7e; --brand-ink:#2b1a10; --brand-soft:#40291a; --bg:#180f0a; --surface:#221610; --surface2:#2e1e14; --border:#4a3220; --text:#f7ead9; --text2:#bb9d84; --bull:#4ade80; --bull-bg:#123524; --bear:#fb8b7d; --bear-bg:#3d1a16; --warn:#fbbf24; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="matcha"]   { --brand:#a3d97e; --brand-ink:#1d2a10; --brand-soft:#2c4419; --bg:#10160a; --surface:#182211; --surface2:#202d16; --border:#35491f; --text:#eef7e0; --text2:#a3b78f; --bull:#6ee7a0; --bull-bg:#123524; --bear:#f87171; --bear-bg:#3d1a16; --warn:#fbbf24; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="stone"]    { --brand:#e7e5e4; --brand-ink:#1c1917; --brand-soft:#33302c; --bg:#121110; --surface:#1c1a18; --surface2:#262320; --border:#3a3632; --text:#f5f4f2; --text2:#a8a29c; --bull:#4ade80; --bull-bg:#123524; --bear:#f87171; --bear-bg:#3d1a16; --warn:#fbbf24; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="gothic"]   { --brand:#e8b4b4; --brand-ink:#26090a; --brand-soft:#3d1518; --bg:#0d0a0b; --surface:#171214; --surface2:#211a1d; --border:#3d2c30; --text:#f6ecec; --text2:#b39aa0; --bull:#4ade80; --bull-bg:#123524; --bear:#fb7185; --bear-bg:#3d1a16; --warn:#fbbf24; --warn-bg:#3a2c08; }
+      [data-mode="dark"][data-theme="y2k"]      { --brand:#67e8f9; --brand-ink:#082f3a; --brand-soft:#3b2b44; --bg:#0a141b; --surface:#122029; --surface2:#1a2d3a; --border:#274b5c; --text:#ecfafd; --text2:#93b7c4; --bull:#4ade80; --bull-bg:#123524; --bear:#f9a8d4; --bear-bg:#3d1a2b; --warn:#fde047; --warn-bg:#3a3408; }
+
+      body {
+        margin: 0; background: var(--bg); color: var(--text);
+        font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 16px; line-height: 1.55;
+        transition: background .25s ease, color .25s ease;
+      }
+      .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px 56px; }
+      h1, h2, h3 { line-height: 1.2; margin: 0; letter-spacing: -.01em; }
+      p { margin: 0; }
+      section { margin-top: 28px; }
+      .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+      .sec-head h2 { font-size: 1.25rem; font-weight: 800; }
+      .sec-head .hint { color: var(--text2); font-size: .875rem; }
+
+      /* Theme Lab */
+      .lab {
+        position: sticky; top: 0; z-index: 20;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      .lab-in { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .lab-label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); white-space: nowrap; }
+      .lab-label b { color: var(--text); }
+      .themes { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+      .theme-btn {
+        display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; min-height: 36px;
+        border: 1px solid var(--border); background: var(--surface); color: var(--text);
+        border-radius: 999px; font: inherit; font-size: .83rem; font-weight: 600; cursor: pointer;
+      }
+      .theme-btn .dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); flex: none; }
+      .theme-btn[aria-pressed="true"] { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+      .mode-btn {
+        display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; min-height: 36px;
+        border: 1px solid var(--brand); background: var(--brand); color: var(--brand-ink);
+        border-radius: 999px; font: inherit; font-size: .83rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+      }
+
+      /* Status strip */
+      .status { margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+      .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; font-size: .8rem; font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--text2); }
+      .chip b { color: var(--text); }
+      .chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+      .chip.warn b { color: var(--warn); }
+
+      /* Verdict */
+      .verdict { margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); padding: 22px; }
+      .verdict h1 { font-size: clamp(1.45rem, 4.5vw, 2.15rem); font-weight: 800; max-width: 22ch; }
+      .verdict .sub { margin-top: 8px; color: var(--text2); max-width: 68ch; }
+      .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+      .metric { background: var(--surface2); border-radius: var(--radius); padding: 14px 16px; }
+      .metric .k { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text2); }
+      .metric .v { font-size: 1.45rem; font-weight: 800; margin-top: 2px; }
+      .metric .d { font-size: .83rem; color: var(--text2); margin-top: 2px; }
+      .metric .v.bear { color: var(--bear); } .metric .v.bull { color: var(--bull); }
+
+      /* Map + detail */
+      .mapgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
+      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); padding: 18px; }
+      .card h3 { font-size: 1rem; font-weight: 800; }
+      .card .cap { color: var(--text2); font-size: .85rem; margin-top: 2px; }
+
+      .ladder { position: relative; height: 430px; margin-top: 14px; margin-right: 86px; }
+      .ladder .axis { position: absolute; top: 0; bottom: 0; right: -86px; width: 86px; }
+      .tick { position: absolute; right: 0; transform: translateY(50%); font-size: .72rem; color: var(--text2); white-space: nowrap; }
+      .tick::before { content: ""; position: absolute; right: 62px; top: 50%; width: 10px; height: 1px; background: var(--border); }
+      .zone-band {
+        position: absolute; left: 0; right: 0; border-radius: 10px; cursor: pointer;
+        border: 1.5px solid transparent; padding: 8px 12px; text-align: left; font: inherit; width: 100%;
+        display: flex; flex-direction: column; justify-content: center; gap: 1px; min-height: 0;
+      }
+      .zone-band .zt { font-weight: 800; font-size: .92rem; }
+      .zone-band .zr { font-size: .78rem; opacity: .85; }
+      .zone-band.zb { background: var(--bear-bg); color: var(--bear); }
+      .zone-band.za { background: var(--warn-bg); color: var(--warn); }
+      .zone-band.zc { background: var(--bull-bg); color: var(--bull); }
+      .zone-band[aria-pressed="true"] { border-color: currentColor; }
+      .zone-band:focus-visible, button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+      .gap-label { position: absolute; left: 12px; font-size: .72rem; color: var(--text2); font-style: italic; transform: translateY(50%); }
+      .marker { position: absolute; left: 0; right: 0; border-top: 1.5px dashed var(--text2); opacity: .75; pointer-events: none; }
+      .marker span { position: absolute; right: 8px; top: -9px; background: var(--surface); padding: 0 5px; font-size: .68rem; font-weight: 700; color: var(--text2); }
+
+      .zone-tabs { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+      .zone-tab { padding: 7px 14px; min-height: 38px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; font-size: .87rem; font-weight: 700; cursor: pointer; }
+      .zone-tab[aria-selected="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+      .detail { margin-top: 14px; }
+      .detail .range { font-size: 1.6rem; font-weight: 800; }
+      .detail .role { display: inline-block; margin-left: 8px; vertical-align: middle; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+      .role.ceiling { background: var(--bear-bg); color: var(--bear); }
+      .role.decision { background: var(--warn-bg); color: var(--warn); }
+      .role.floor { background: var(--bull-bg); color: var(--bull); }
+      .plays { margin-top: 12px; display: grid; gap: 8px; }
+      .play { display: grid; grid-template-columns: 86px 1fr; gap: 10px; background: var(--surface2); border-radius: 10px; padding: 10px 12px; font-size: .92rem; }
+      .play .when { font-weight: 800; font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--text2); padding-top: 2px; }
+      .inval { margin-top: 12px; font-size: .9rem; color: var(--text2); }
+      .inval b { color: var(--bear); }
+
+      /* Levels table */
+      .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+      .filter-btn { padding: 6px 13px; min-height: 36px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; font-size: .83rem; font-weight: 600; cursor: pointer; }
+      .filter-btn[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+      .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+      table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+      thead th { text-align: left; font-size: .72rem; letter-spacing: .09em; text-transform: uppercase; color: var(--text2); padding: 12px 16px 8px; border-bottom: 1px solid var(--border); }
+      tbody td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+      tbody tr:last-child td { border-bottom: none; }
+      td.price { font-weight: 700; white-space: nowrap; }
+      td.note { color: var(--text2); }
+      .tag { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+      .tag.ceiling { background: var(--bear-bg); color: var(--bear); }
+      .tag.decision { background: var(--warn-bg); color: var(--warn); }
+      .tag.floor { background: var(--bull-bg); color: var(--bull); }
+      .tag.mid { background: var(--surface2); color: var(--text2); }
+
+      /* Rules + sources */
+      .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .rules { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+      .rules li { display: flex; gap: 10px; font-size: .95rem; }
+      .rules .n { flex: none; width: 24px; height: 24px; border-radius: 8px; background: var(--brand); color: var(--brand-ink); font-size: .78rem; font-weight: 800; display: grid; place-items: center; margin-top: 1px; }
+      .quote { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--brand-soft); font-weight: 700; font-size: .95rem; }
+      .sources { display: grid; gap: 10px; margin-top: 14px; }
+      .source { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; background: var(--surface2); border-radius: 10px; padding: 12px 14px; }
+      .source .name { font-weight: 800; font-size: .95rem; }
+      .source .what { grid-column: 1 / -1; color: var(--text2); font-size: .87rem; }
+      .source .st { font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--bull); align-self: start; padding-top: 3px; }
+      footer { margin-top: 32px; color: var(--text2); font-size: .83rem; border-top: 1px solid var(--border); padding-top: 14px; }
+
+      @media (max-width: 760px) {
+        .lab { position: static; }
+        .lab-label { order: 1; }
+        .mode-btn { order: 2; margin-left: auto; }
+        .themes { order: 3; flex: 1 1 100%; }
+        .metrics { grid-template-columns: 1fr; }
+        .mapgrid, .twocol { grid-template-columns: 1fr; }
+        .ladder { height: 380px; }
+        .verdict { padding: 18px; }
+        thead { display: none; }
+        tbody td { display: block; padding: 4px 16px; border-bottom: none; }
+        tbody tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        tbody tr:last-child { border-bottom: none; }
+        td.price { font-size: 1.05rem; }
+      }
+    </style>
+  </head>
+  <body data-theme="neutral" data-mode="light">
+
+    <div class="lab" role="region" aria-label="Theme Lab — đổi theme Astryx">
+      <div class="lab-in">
+        <span class="lab-label">Astryx · <b>Theme Lab</b></span>
+        <div class="themes" id="themes"></div>
+        <button class="mode-btn" id="modeBtn" type="button" aria-pressed="false">☾&nbsp; Tối</button>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="status">
+        <span class="chip">Plan <b>&nbsp;20/11/2026</b></span>
+        <span class="chip">Nguồn <b>&nbsp;19/11</b></span>
+        <span class="chip warn">⚠ <b>Tham chiếu — 0DTE đã hết hạn sau OPEX 20/11</b></span>
+        <span class="chip">Phiên tới <b>&nbsp;Thứ Hai 23/11</b></span>
+        <span class="chip">Mã <b>&nbsp;NQ</b></span>
+      </div>
+
+      <div class="verdict">
+        <h1>Hai tầng gamma ngược nhau — đánh rotation, không đuổi giá.</h1>
+        <p class="sub">Tầng SPX cực âm kéo theo rủi ro biến động lớn, nhưng 0DTE của NQ và ES lại dương — giá dễ bị giữ trong biên và xoay hai chiều quanh hộp quyết định. Net drift calls âm cho thấy dòng tiền chưa ủng hộ chiều lên.</p>
+        <div class="metrics">
+          <div class="metric">
+            <div class="k">SPX Dealer Gamma · aleks</div>
+            <div class="v bear mono">−$7,3B</div>
+            <div class="d">Âm cực đoan nhất kể từ 2019 — dealer phải hedge cùng chiều biến động.</div>
+          </div>
+          <div class="metric">
+            <div class="k">0DTE Gamma NQ + ES · Thraxx</div>
+            <div class="v bull">Dương</div>
+            <div class="d">Ưu tiên two-sided / rotation trong phiên, tránh breakout đuổi theo.</div>
+          </div>
+          <div class="metric">
+            <div class="k">Net Drift Calls</div>
+            <div class="v bear mono">−$929,27K</div>
+            <div class="d">Âm — chưa có lực đỡ cho kịch bản tăng bền.</div>
+          </div>
+        </div>
+      </div>
+
+      <section aria-labelledby="map-h">
+        <div class="sec-head">
+          <h2 id="map-h">Bản đồ mức giá</h2>
+          <span class="hint">Bấm vào từng vùng trên bản đồ để xem kịch bản</span>
+        </div>
+        <div class="mapgrid">
+          <div class="card">
+            <h3>NQ — thang giá 26.783 → 28.020</h3>
+            <p class="cap">Chiều cao vùng tỉ lệ theo khoảng điểm thật.</p>
+            <div class="ladder" id="ladder">
+              <button class="zone-band zb" type="button" data-zone="B" aria-pressed="false" style="bottom:78.6%;height:21.4%">
+                <span class="zt">ZONE B · Trần</span><span class="zr mono">27.755 – 28.020</span>
+              </button>
+              <button class="zone-band za" type="button" data-zone="A" aria-pressed="true" style="bottom:66%;height:9.8%">
+                <span class="zt">ZONE A · Hộp quyết định</span><span class="zr mono">27.600 – 27.721</span>
+              </button>
+              <span class="gap-label" style="bottom:57%">Vùng trống — không có kế hoạch</span>
+              <button class="zone-band zc" type="button" data-zone="C" aria-pressed="false" style="bottom:0%;height:46.6%">
+                <span class="zt">ZONE C · Sàn sâu</span><span class="zr mono">26.783 – 27.360</span>
+              </button>
+              <div class="marker" style="bottom:83.4%"><span>POC 27.800 · ONH 27.831</span></div>
+              <div class="axis mono" aria-hidden="true">
+                <span class="tick" style="bottom:100%">28.020</span>
+                <span class="tick" style="bottom:78.6%">27.755</span>
+                <span class="tick" style="bottom:66%">27.600</span>
+                <span class="tick" style="bottom:46.6%">27.360</span>
+                <span class="tick" style="bottom:0%">26.783</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Kịch bản theo vùng</h3>
+            <p class="cap">Chỉ hành động khi giá test vùng + có xác nhận order flow tại vùng.</p>
+            <div class="zone-tabs" role="tablist" aria-label="Chọn vùng">
+              <button class="zone-tab" type="button" role="tab" data-zone="B" aria-selected="false">B · Trần</button>
+              <button class="zone-tab" type="button" role="tab" data-zone="A" aria-selected="true">A · Quyết định</button>
+              <button class="zone-tab" type="button" role="tab" data-zone="C" aria-selected="false">C · Sàn sâu</button>
+            </div>
+            <div class="detail" id="detail" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="levels-h">
+        <div class="sec-head">
+          <h2 id="levels-h">Bảng levels</h2>
+          <div class="filters" role="group" aria-label="Lọc levels theo vùng">
+            <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">Tất cả</button>
+            <button class="filter-btn" type="button" data-filter="ceiling" aria-pressed="false">Trần</button>
+            <button class="filter-btn" type="button" data-filter="decision" aria-pressed="false">Quyết định</button>
+            <button class="filter-btn" type="button" data-filter="floor" aria-pressed="false">Sàn sâu</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead><tr><th scope="col">Mức giá</th><th scope="col">Vùng</th><th scope="col">Ý nghĩa</th></tr></thead>
+            <tbody id="levelsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <div class="twocol">
+          <div class="card">
+            <h3>Kỷ luật phiên</h3>
+            <p class="cap">Plan chỉ có giá trị khi giữ đúng thứ tự này.</p>
+            <ol class="rules">
+              <li><span class="n">1</span><span>Không làm gì cho đến khi giá <b>test một vùng</b> trong plan — giữa các vùng là vùng trống.</span></li>
+              <li><span class="n">2</span><span>Tại vùng, chờ <b>xác nhận order flow</b> (absorption, CVD divergence, failed auction) rồi mới vào lệnh.</span></li>
+              <li><span class="n">3</span><span>Regime 0DTE dương = ưu tiên <b>rotation hai chiều</b>, không đuổi breakout giữa biên.</span></li>
+              <li><span class="n">4</span><span>Gamma SPX âm cực đoan: khi giá đã chạy xa khỏi vùng, <b>không rượt</b> — biến động có thể phóng nhanh cả hai chiều.</span></li>
+            </ol>
+            <p class="quote">Đứng ngoài cũng là một vị thế.</p>
+          </div>
+          <div class="card">
+            <h3>Nguồn dựng plan</h3>
+            <p class="cap">Bốn nguồn hợp lưu — plan mới cần đủ bốn nguồn của phiên mới.</p>
+            <div class="sources">
+              <div class="source"><span class="name">aleks rosme · Quant Data</span><span class="st">Đã có 19/11</span><span class="what">Dealer gamma SPX −$7,3B, net drift calls — tầng regime vĩ mô.</span></div>
+              <div class="source"><span class="name">Thraxx · Tanuki Trade</span><span class="st">Đã có 19/11</span><span class="what">GEX plan 0DTE cho NQ + ES — tầng thực thi trong phiên.</span></div>
+              <div class="source"><span class="name">ATAS</span><span class="st">Đã có 19/11</span><span class="what">Footprint / absorption tại vùng — lớp xác nhận khi giá test zone.</span></div>
+              <div class="source"><span class="name">DeepChart</span><span class="st">Đã có 19/11</span><span class="what">Bản đồ 9 levels annotate trực tiếp lên chart — khung mức giá của plan.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Plan dựng 21:00 ngày 20/11/2026 từ nguồn 19/11. Các mức 0DTE trong plan đã hết hạn tại OPEX 20/11 — trang này giữ chúng làm khung tham chiếu levels cho phiên Thứ Hai 23/11, không dùng như plan live. Giao diện dựng theo hệ token của Astryx (Meta): 7 theme đổi qua Theme Lab ở thanh trên.
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var THEMES = [
+          { id: "neutral",   name: "Neutral",   dot: "#6b7280" },
+          { id: "butter",    name: "Butter",    dot: "#eab308" },
+          { id: "chocolate", name: "Chocolate", dot: "#7c4a2d" },
+          { id: "matcha",    name: "Matcha",    dot: "#65a30d" },
+          { id: "stone",     name: "Stone",     dot: "#a8a29e" },
+          { id: "gothic",    name: "Gothic",    dot: "#7f1d1d" },
+          { id: "y2k",       name: "Y2K",       dot: "#ec4899" }
+        ];
+        var body = document.body;
+        var themesEl = document.getElementById("themes");
+        var modeBtn = document.getElementById("modeBtn");
+
+        THEMES.forEach(function (t) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "theme-btn"; b.dataset.themeBtn = t.id;
+          b.setAttribute("aria-pressed", t.id === "neutral" ? "true" : "false");
+          b.innerHTML = '<span class="dot" style="background:' + t.dot + '"></span>' + t.name;
+          b.addEventListener("click", function () { setTheme(t.id); });
+          themesEl.appendChild(b);
+        });
+        function setTheme(id) {
+          body.dataset.theme = id;
+          themesEl.querySelectorAll("[data-theme-btn]").forEach(function (b) {
+            b.setAttribute("aria-pressed", b.dataset.themeBtn === id ? "true" : "false");
+          });
+        }
+        function setMode(mode) {
+          body.dataset.mode = mode;
+          var dark = mode === "dark";
+          modeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
+          modeBtn.innerHTML = dark ? "☀&nbsp; Sáng" : "☾&nbsp; Tối";
+        }
+        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) setMode("dark");
+        modeBtn.addEventListener("click", function () {
+          setMode(body.dataset.mode === "dark" ? "light" : "dark");
+        });
+
+        var ZONES = {
+          A: {
+            range: "27.600 – 27.721", role: "Hộp quyết định", roleClass: "decision",
+            plays: [
+              { when: "Chấp nhận trên 27.721", then: "Mở đường lên POC 27.800 — ưu tiên long theo cấu trúc khi có xác nhận giữ giá trên hộp." },
+              { when: "Mất 27.690,50", then: "Yếu dần về 27.607, mất tiếp thì mở đường xuống 27.360 (mép trên Zone C)." },
+              { when: "Trong hộp", then: "Không giao dịch giữa hộp — đây là vùng cân bằng, chờ giá rời hộp có chấp nhận." }
+            ],
+            inval: "Kịch bản hộp vô hiệu khi giá đóng và giữ ngoài biên hộp kèm order flow ngược chiều xác nhận."
+          },
+          B: {
+            range: "27.755 – 28.020", role: "Trần hợp lưu", roleClass: "ceiling",
+            plays: [
+              { when: "Reject tại vùng trần", then: "Short về POC 27.800 — cần dấu hiệu bị từ chối (failed auction / absorption phe mua) tại vùng." },
+              { when: "Chấp nhận trên 28.020", then: "Đứng ngoài, chờ cấu trúc mới — trên 28.020 plan không còn mức tham chiếu." },
+              { when: "Trong vùng", then: "POC 27.800 và overnight high 27.831 là hai mốc xoay chính — đánh rotation quanh chúng, không đuổi." }
+            ],
+            inval: "Short trần vô hiệu ngay khi giá được chấp nhận trên 28.020."
+          },
+          C: {
+            range: "26.783 – 27.360", role: "Sàn sâu", roleClass: "floor",
+            plays: [
+              { when: "Test sàn + absorption", then: "Long khi thấy absorption hoặc CVD divergence tại sàn — phe bán kiệt sức mới là tín hiệu." },
+              { when: "Mục tiêu 1", then: "27.000 — chốt từng phần, đây là mốc tròn đầu tiên trên đường hồi." },
+              { when: "Mục tiêu 2", then: "27.256 — mở rộng nhịp hồi nếu lực mua duy trì sau mốc 1." }
+            ],
+            inval: "Long sàn vô hiệu khi giá chấp nhận dưới 26.783 — dưới đó không còn mốc đỡ trong plan."
+          }
+        };
+        var detail = document.getElementById("detail");
+        function renderZone(id) {
+          var z = ZONES[id];
+          var html = '<div><span class="range mono">' + z.range + '</span>' +
+            '<span class="role ' + z.roleClass + '">Zone ' + id + ' · ' + z.role + '</span></div><div class="plays">';
+          z.plays.forEach(function (p) {
+            html += '<div class="play"><span class="when">' + p.when + '</span><span>' + p.then + '</span></div>';
+          });
+          html += '</div><p class="inval"><b>Vô hiệu hoá:</b> ' + z.inval + '</p>';
+          detail.innerHTML = html;
+          document.querySelectorAll("[data-zone]").forEach(function (el) {
+            var on = el.dataset.zone === id;
+            if (el.classList.contains("zone-tab")) el.setAttribute("aria-selected", on ? "true" : "false");
+            else el.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+        }
+        document.querySelectorAll("[data-zone]").forEach(function (el) {
+          el.addEventListener("click", function () { renderZone(el.dataset.zone); });
+        });
+        renderZone("A");
+
+        var LEVELS = [
+          { price: "28.020", group: "ceiling",  tag: "Trần", note: "Trần hợp lưu — trên mức này đứng ngoài chờ cấu trúc mới." },
+          { price: "27.831", group: "ceiling",  tag: "Trần", note: "Overnight high — mốc xoay trong Zone B." },
+          { price: "27.800", group: "ceiling",  tag: "POC", note: "POC — đích của short reject trần và của long qua hộp." },
+          { price: "27.755", group: "ceiling",  tag: "Trần", note: "Mép dưới Zone B." },
+          { price: "27.721", group: "decision", tag: "Hộp", note: "Mép trên hộp quyết định — chấp nhận trên đây mở đường lên 27.800." },
+          { price: "27.690,50", group: "decision", tag: "Hộp", note: "Mốc giữa hộp — mất mốc này giá yếu dần về 27.607." },
+          { price: "27.607", group: "decision", tag: "Hộp", note: "Mép dưới hộp — mất tiếp mở đường xuống 27.360." },
+          { price: "27.600", group: "decision", tag: "Hộp", note: "Đáy Zone A." },
+          { price: "27.360", group: "floor",    tag: "Sàn", note: "Mép trên Zone C — điểm nối từ hộp quyết định xuống sàn sâu." },
+          { price: "27.256", group: "floor",    tag: "Đích", note: "Mục tiêu 2 của long sàn sâu." },
+          { price: "27.000", group: "floor",    tag: "Đích", note: "Mục tiêu 1 của long sàn sâu — mốc tròn." },
+          { price: "26.783", group: "floor",    tag: "Sàn", note: "Đáy Zone C — chấp nhận dưới đây vô hiệu kịch bản long." }
+        ];
+        var tbody = document.getElementById("levelsBody");
+        function renderLevels(filter) {
+          tbody.innerHTML = LEVELS.filter(function (l) { return filter === "all" || l.group === filter; })
+            .map(function (l) {
+              return '<tr><td class="price mono">' + l.price + '</td><td><span class="tag ' + l.group + '">' + l.tag + '</span></td><td class="note">' + l.note + '</td></tr>';
+            }).join("");
+        }
+        document.querySelectorAll("[data-filter]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            document.querySelectorAll("[data-filter]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+            b.setAttribute("aria-pressed", "true");
+            renderLevels(b.dataset.filter);
+          });
+        });
+        renderLevels("all");
+      })();
+    </script>
+  </body>
+</html>
